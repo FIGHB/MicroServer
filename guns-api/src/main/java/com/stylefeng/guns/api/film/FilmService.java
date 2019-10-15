@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.film;
+package com.stylefeng.guns.api.film;
 
 public interface FilmService {
     Object queryBanners();
@@ -13,4 +13,7 @@ public interface FilmService {
 
     Object queryTop100();
 
+    Object getFilmInfoById(String filmId);
+
+    Object getFilmInfoByName(String filmName);
 }

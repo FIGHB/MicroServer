@@ -23,6 +23,13 @@ public class HomePageResponseVo {
         return responseVo;
     }
 
+    public static HomePageResponseVo err(int status, String msg) {
+        HomePageResponseVo responseVo = new HomePageResponseVo();
+        responseVo.setStatus(status);
+        responseVo.setMsg(msg);
+        return responseVo;
+    }
+
     public Object getData() {
         return data;
     }

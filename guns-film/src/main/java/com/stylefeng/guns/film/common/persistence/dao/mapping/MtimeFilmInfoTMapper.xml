@@ -15,4 +15,26 @@
         <result column="film_imgs" property="filmImgs" />
     </resultMap>
 
+    <resultMap id="LRFilmDetailsVo" type="com.stylefeng.guns.film.common.persistence.model.LRFilmDetailsVo">
+        <result column="film_id" property="filmId" />
+        <result column="film_en_name" property="filmEnName" />
+        <result column="film_score" property="score" />
+        <result column="film_score_num" property="scoreNum" />
+        <result column="biography" property="info04.biopgraphy" />
+        <result column="film_id" property="info04.filmId" />
+        <result column="director_id" property="directorId" />
+        <result column="film_imgs" property="filmImgs" />
+    </resultMap>
+
+    <select id="queryFilmInfoById" resultMap="LRFilmDetailsVo">
+        select * from mtime_film_info_t
+        where film_id = #{filmId}
+        limit 0, 1
+    </select>
+
+    <select id="getFilmLengthById" resultType="int">
+        select film_length from mtime_film_info_t
+        where film_id = #{filmId}
+        limit 0, 1
+    </select>
 </mapper>

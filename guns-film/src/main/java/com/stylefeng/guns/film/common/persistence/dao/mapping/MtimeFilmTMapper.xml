@@ -55,4 +55,10 @@
         order by film_score desc
         limit 0, 10
     </select>
+
+    <select id="queryFilmById" resultMap="LRMtimeFilmTMap">
+        select * from mtime_film_t
+        where UUID = #{filmId}
+        limit 0, 1
+    </select>
 </mapper>

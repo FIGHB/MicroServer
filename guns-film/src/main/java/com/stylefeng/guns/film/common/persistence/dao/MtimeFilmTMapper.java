@@ -15,6 +15,7 @@ import java.util.List;
  * @since 2019-10-14
  */
 
+//只要继承了BaseMapper<LRMtimeFilmT> 就可以使用 MP 的各种 crud 功能
 @Repository
 public interface MtimeFilmTMapper extends BaseMapper<LRMtimeFilmT> {
 
@@ -28,4 +29,5 @@ public interface MtimeFilmTMapper extends BaseMapper<LRMtimeFilmT> {
 
     List<LRMtimeFilmT> queryTop100();
 
+    LRMtimeFilmT queryFilmById(int filmId);
 }

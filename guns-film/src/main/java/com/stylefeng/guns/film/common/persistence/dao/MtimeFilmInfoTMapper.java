@@ -1,5 +1,6 @@
 package com.stylefeng.guns.film.common.persistence.dao;
 
+import com.stylefeng.guns.film.common.persistence.model.LRFilmDetailsVo;
 import com.stylefeng.guns.film.common.persistence.model.MtimeFilmInfoT;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
@@ -13,4 +14,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface MtimeFilmInfoTMapper extends BaseMapper<MtimeFilmInfoT> {
 
+    LRFilmDetailsVo queryFilmInfoById(String filmId);
+
+    Integer getFilmLengthById(Integer filmId);
 }

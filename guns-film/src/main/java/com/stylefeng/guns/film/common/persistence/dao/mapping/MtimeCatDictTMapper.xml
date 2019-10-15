@@ -8,4 +8,8 @@
         <result column="show_name" property="showName" />
     </resultMap>
 
+    <select id="queryNameById" resultType="string">
+        select show_name from mtime_cat_dict_t
+        where UUID = #{id}
+    </select>
 </mapper>

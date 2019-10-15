@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface MtimeSourceDictTMapper extends BaseMapper<MtimeSourceDictT> {
 
+    String queryAreaById(Integer areaId);
 }

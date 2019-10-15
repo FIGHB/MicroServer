@@ -10,4 +10,16 @@
         <result column="role_name" property="roleName" />
     </resultMap>
 
+    <resultMap id="LRDirectorVoMap" type="com.stylefeng.guns.film.common.persistence.model.LRDirectorVo">
+        <result column="actor_name" property="directorName" />
+        <result column="actor_img" property="imgAddress" />
+        <result column="role_name" property="roleName" />
+    </resultMap>
+
+    <select id="queryActorListsByFilmId" resultMap="LRDirectorVoMap">
+        select actor_name, actor_img, role_name
+        from mtime_film_actor_t join mtime_actor_t t2
+        on actor_id = t2.UUID
+        where film_id = #{filmId}
+    </select>
 </mapper>

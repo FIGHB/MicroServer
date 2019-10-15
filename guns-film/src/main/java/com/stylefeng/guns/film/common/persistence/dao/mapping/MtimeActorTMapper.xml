@@ -9,4 +9,14 @@
         <result column="actor_img" property="actorImg" />
     </resultMap>
 
+    <resultMap id="LRDirectorVoMap" type="com.stylefeng.guns.film.common.persistence.model.LRDirectorVo">
+        <result column="actor_name" property="directorName" />
+        <result column="actor_img" property="imgAddress" />
+    </resultMap>
+
+    <select id="queryDirectorById" resultMap="LRDirectorVoMap">
+        select * from mtime_actor_t
+        where UUID = #{directorId}
+        limit 0, 1
+    </select>
 </mapper>

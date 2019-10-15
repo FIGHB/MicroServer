@@ -3,7 +3,9 @@ package com.stylefeng.guns.gateway.modular.film;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.stylefeng.guns.gateway.common.persistence.model.HomePageResponseVo;
-import com.stylefeng.guns.rest.film.FilmService;
+import com.stylefeng.guns.api.film.FilmService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +33,19 @@ public class FilmController {
         return HomePageResponseVo.ok(data);
     }
 
-    
+    @GetMapping("/film/films/{identifaction}")
+    public HomePageResponseVo getFilmInfo(@PathVariable("identifaction")String identifaction,
+                                          Integer searchType) {
+        Object data = null;
+        if(searchType == 0) {
+            String filmId = identifaction;
+            data = filmService.getFilmInfoById(filmId);
+        } else if(searchType == 1) {
+            String filmName = identifaction;
+            data = filmService.getFilmInfoByName(filmName);
+        } else {
+            return HomePageResponseVo.err(1, "查询失败，无影片可加载");
+        }
+        return HomePageResponseVo.ok(data);
+    }
 }

@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.user;
+package com.stylefeng.guns.api.user;
 
 public interface UserService {
     public String getNameById(int userId);

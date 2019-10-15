@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface MtimeCatDictTMapper extends BaseMapper<MtimeCatDictT> {
 
+    String queryNameById(int id);
 }

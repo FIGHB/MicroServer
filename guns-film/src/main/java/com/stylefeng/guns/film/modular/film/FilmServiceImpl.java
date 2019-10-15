@@ -1,19 +1,14 @@
 package com.stylefeng.guns.film.modular.film;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.stylefeng.guns.film.common.persistence.dao.MtimeBannerTMapper;
-import com.stylefeng.guns.film.common.persistence.dao.MtimeFilmTMapper;
-import com.stylefeng.guns.film.common.persistence.model.LRMtimeFilmT;
-import com.stylefeng.guns.film.common.persistence.model.MtimeBannerT;
-import com.stylefeng.guns.rest.film.FilmService;
+import com.stylefeng.guns.film.common.persistence.dao.*;
+import com.stylefeng.guns.film.common.persistence.model.*;
+import com.stylefeng.guns.api.film.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @Service(interfaceClass = FilmService.class)    //是 dubbo 的 service 注解
@@ -24,6 +19,21 @@ public class FilmServiceImpl implements FilmService {
 
     @Autowired
     MtimeFilmTMapper filmTMapper;
+
+    @Autowired
+    MtimeFilmInfoTMapper filmInfoTMapper;
+
+    @Autowired
+    MtimeCatDictTMapper catDictTMapper;
+
+    @Autowired
+    MtimeSourceDictTMapper sourceDictTMapper;
+
+    @Autowired
+    MtimeActorTMapper actorTMapper;
+
+    @Autowired
+    MtimeFilmActorTMapper filmActorTMapper;
 
     /**
      * 首页顶部的三张循环图的部分
@@ -115,8 +125,75 @@ public class FilmServiceImpl implements FilmService {
         return films;
     }
 
+    @Override
+    public Object getFilmInfoById(String filmId) {
+        LRFilmDetailsVo filmDetails = filmInfoTMapper.queryFilmInfoById(filmId);
+        LRMtimeFilmT films = filmTMapper.queryFilmById(Integer.parseInt(filmId));
+        filmDetails.setFilmName(films.getFilmName());
+        filmDetails.setImgAddress(films.getImgAddress());
+        filmDetails.setTotalBox(films.getBoxNum().toString());
+        setFilmDetailsInfo(filmDetails, films);
+        return filmDetails;
+    }
 
-/***************************私有方法**********************************/
+
+    private void setFilmDetailsInfo(LRFilmDetailsVo filmDetails, LRMtimeFilmT films) {
+        //info01
+        String filmCats = films.getFilmCats();
+        String[] catIds = filmCats.split("#");
+        StringBuffer info01 = new StringBuffer();
+        for (String catId : catIds) {
+            if(catId == null || catId.equals("")) {
+                continue;
+            }
+            int id = Integer.parseInt(catId);
+            String name = catDictTMapper.queryNameById(id);
+            info01.append(name).append(",");
+        }
+        String subInfo01 = info01.substring(0, info01.length() - 1);
+        filmDetails.setInfo01(subInfo01);
+
+        //info02    info02: "法国 / 543分钟"
+        String area = sourceDictTMapper.queryAreaById(films.getFilmArea());
+        Integer filmLength = filmInfoTMapper.getFilmLengthById(films.getFilmId());
+        String info02 =area +  " / " + filmLength.toString();
+        filmDetails.setInfo02(info02);
+
+        //info03    info03: "2018-07-19 00:00:00法国上映"
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateNowStr = sdf.format(films.getFilmTime());
+        String info03 = dateNowStr + " " + area + "上映";
+        filmDetails.setInfo03(info03);
+
+        //info04
+        FilmInfo04Vo info04 = filmDetails.getInfo04();
+        String[] imgVo = filmDetails.getFilmImgs().split(",");
+        Map<String, Object> imgVoMap = new HashMap<>();
+        for(int i = 0; i < imgVo.length; i++) {
+            if(i == 0) {
+                imgVoMap.put("mainImg", imgVo[i]);
+            } else {
+                imgVoMap.put("img0" + i, imgVo[i]);
+            }
+        }
+        HashMap<Object, Object> actors = new HashMap<>();
+        LRDirectorVo director = actorTMapper.queryDirectorById(filmDetails.getDirectorId());
+
+        int filmId = Integer.parseInt(filmDetails.getFilmId());
+        List<LRDirectorVo> actorsList = filmActorTMapper.queryActorListsByFilmId(filmId);
+        actors.put("director", director);
+        actors.put("actors", actorsList);
+        info04.setImgVO(imgVoMap);
+        info04.setActors(actors);
+
+    }
+
+    @Override
+    public Object getFilmInfoByName(String filmName) {
+        return null;
+    }
+
+    /***************************私有方法**********************************/
     private void setLRMtimeFilmList(List<LRMtimeFilmT> filmTs) {
         for (LRMtimeFilmT film : filmTs) {
             film.setShowTime(film.getFilmTime());

@@ -1,5 +1,6 @@
 package com.stylefeng.guns.film.common.persistence.dao;
 
+import com.stylefeng.guns.film.common.persistence.model.LRDirectorVo;
 import com.stylefeng.guns.film.common.persistence.model.MtimeActorT;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface MtimeActorTMapper extends BaseMapper<MtimeActorT> {
 
+    LRDirectorVo queryDirectorById(Integer directorId);
 }
