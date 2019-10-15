@@ -1,7 +1,12 @@
 package com.stylefeng.guns.cinema.modular.auth.validator.impl;
 
+<<<<<<< HEAD
 import com.stylefeng.guns.cinema.modular.auth.validator.dto.Credence;
 import com.stylefeng.guns.cinema.modular.auth.validator.IReqValidator;
+=======
+import com.stylefeng.guns.cinema.modular.auth.validator.IReqValidator;
+import com.stylefeng.guns.cinema.modular.auth.validator.dto.Credence;
+>>>>>>> 57fccb6f6b4082b624fd15ef1f3c66b881cc1e03
 import org.springframework.stereotype.Service;
 
 /**

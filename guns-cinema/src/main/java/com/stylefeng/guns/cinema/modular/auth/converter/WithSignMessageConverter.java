@@ -3,12 +3,20 @@ package com.stylefeng.guns.cinema.modular.auth.converter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.stylefeng.guns.cinema.common.exception.BizExceptionEnum;
+<<<<<<< HEAD:guns-cinema/src/main/java/com/stylefeng/guns/cinema/modular/auth/converter/WithSignMessageConverter.java
 import com.stylefeng.guns.cinema.modular.auth.security.DataSecurityAction;
 import com.stylefeng.guns.cinema.modular.auth.util.JwtTokenUtil;
+=======
+>>>>>>> 57fccb6f6b4082b624fd15ef1f3c66b881cc1e03:guns-gateway/src/main/java/com/stylefeng/guns/rest/modular/auth/converter/WithSignMessageConverter.java
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.support.HttpKit;
 import com.stylefeng.guns.core.util.MD5Util;
 import com.stylefeng.guns.cinema.config.properties.JwtProperties;
+<<<<<<< HEAD:guns-cinema/src/main/java/com/stylefeng/guns/cinema/modular/auth/converter/WithSignMessageConverter.java
+=======
+import com.stylefeng.guns.cinema.modular.auth.security.DataSecurityAction;
+import com.stylefeng.guns.cinema.modular.auth.util.JwtTokenUtil;
+>>>>>>> 57fccb6f6b4082b624fd15ef1f3c66b881cc1e03:guns-gateway/src/main/java/com/stylefeng/guns/rest/modular/auth/converter/WithSignMessageConverter.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageNotReadableException;

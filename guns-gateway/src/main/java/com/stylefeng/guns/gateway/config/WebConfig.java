@@ -4,6 +4,7 @@ import com.stylefeng.guns.gateway.modular.auth.filter.AuthFilter;
 import com.stylefeng.guns.gateway.modular.auth.security.DataSecurityAction;
 import com.stylefeng.guns.gateway.modular.auth.security.impl.Base64SecurityAction;
 import com.stylefeng.guns.gateway.config.properties.RestProperties;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

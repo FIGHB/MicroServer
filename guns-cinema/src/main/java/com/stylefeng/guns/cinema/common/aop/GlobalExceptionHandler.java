@@ -1,8 +1,14 @@
 package com.stylefeng.guns.cinema.common.aop;
 
+<<<<<<< HEAD
 import com.stylefeng.guns.cinema.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.core.aop.BaseControllerExceptionHandler;
 import com.stylefeng.guns.core.base.tips.ErrorTip;
+=======
+import com.stylefeng.guns.core.aop.BaseControllerExceptionHandler;
+import com.stylefeng.guns.core.base.tips.ErrorTip;
+import com.stylefeng.guns.cinema.common.exception.BizExceptionEnum;
+>>>>>>> 57fccb6f6b4082b624fd15ef1f3c66b881cc1e03
 import io.jsonwebtoken.JwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

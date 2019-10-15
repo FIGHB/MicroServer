@@ -1,8 +1,10 @@
 package com.stylefeng.guns.cinema.config;
 
+
 import com.stylefeng.guns.cinema.modular.auth.converter.WithSignMessageConverter;
 import com.stylefeng.guns.core.config.DefaultFastjsonConfig;
 import com.stylefeng.guns.cinema.config.properties.RestProperties;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
