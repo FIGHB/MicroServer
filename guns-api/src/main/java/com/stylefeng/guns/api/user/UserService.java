@@ -1,5 +1,8 @@
 package com.stylefeng.guns.api.user;
 
+import com.stylefeng.guns.api.bean.steve.SteveUserforUserInfo;
+
 public interface UserService {
-    public String getNameById(int userId);
+
+    SteveUserforUserInfo getUserInfo(String username);
 }
