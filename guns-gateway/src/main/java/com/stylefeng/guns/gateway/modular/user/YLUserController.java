@@ -15,7 +15,7 @@ import redis.clients.jedis.Jedis;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-public class UserController {
+public class YLUserController {
 
     @Reference(interfaceClass = UserService.class)
     private UserService userService;
