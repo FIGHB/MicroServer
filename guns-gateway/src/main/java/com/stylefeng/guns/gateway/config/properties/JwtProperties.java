@@ -1,4 +1,7 @@
+
 package com.stylefeng.guns.gateway.config.properties;
+
+
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +27,18 @@ public class JwtProperties {
     private String authPath = "auth";
 
     private String md5Key = "randomKey";
+
+
+    private String ignoreUrl;
+
+    public String getIgnoreUrl() {
+        return ignoreUrl;
+    }
+
+    public void setIgnoreUrl(String ignoreUrl) {
+        this.ignoreUrl = ignoreUrl;
+    }
+
 
     public static String getJwtPrefix() {
         return JWT_PREFIX;

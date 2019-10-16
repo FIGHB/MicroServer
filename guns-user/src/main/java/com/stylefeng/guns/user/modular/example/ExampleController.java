@@ -1,3 +1,4 @@
+
 package com.stylefeng.guns.user.modular.example;
 
 import com.stylefeng.guns.user.common.SimpleObject;

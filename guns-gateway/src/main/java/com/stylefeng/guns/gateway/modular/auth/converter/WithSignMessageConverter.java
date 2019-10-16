@@ -5,10 +5,11 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.support.HttpKit;
 import com.stylefeng.guns.core.util.MD5Util;
-import com.stylefeng.guns.gateway.modular.auth.util.JwtTokenUtil;
 import com.stylefeng.guns.gateway.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.gateway.config.properties.JwtProperties;
 import com.stylefeng.guns.gateway.modular.auth.security.DataSecurityAction;
+import com.stylefeng.guns.gateway.modular.auth.util.JwtTokenUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageNotReadableException;

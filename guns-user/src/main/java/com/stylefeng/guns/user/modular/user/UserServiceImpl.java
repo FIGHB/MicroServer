@@ -1,7 +1,6 @@
 package com.stylefeng.guns.user.modular.user;
 
 import com.alibaba.dubbo.config.annotation.Service;
-
 import com.stylefeng.guns.user.common.persistence.dao.UserMapper;
 import com.stylefeng.guns.user.common.persistence.model.User;
 import com.stylefeng.guns.api.user.UserService;
@@ -22,4 +21,9 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectById(userId);
         return user.getUserName();
     }
+
+    /*@Override
+    public String insert(UserModel userModel) {
+
+    }*/
 }
