@@ -1,20 +1,11 @@
 package com.stylefeng.guns.cinema.modular.auth.controller;
 
-<<<<<<< HEAD
 import com.stylefeng.guns.cinema.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.cinema.modular.auth.controller.dto.AuthRequest;
 import com.stylefeng.guns.cinema.modular.auth.controller.dto.AuthResponse;
 import com.stylefeng.guns.cinema.modular.auth.validator.IReqValidator;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.cinema.modular.auth.util.JwtTokenUtil;
-=======
-import com.stylefeng.guns.cinema.modular.auth.controller.dto.AuthResponse;
-import com.stylefeng.guns.core.exception.GunsException;
-import com.stylefeng.guns.cinema.common.exception.BizExceptionEnum;
-import com.stylefeng.guns.cinema.modular.auth.controller.dto.AuthRequest;
-import com.stylefeng.guns.cinema.modular.auth.util.JwtTokenUtil;
-import com.stylefeng.guns.cinema.modular.auth.validator.IReqValidator;
->>>>>>> 57fccb6f6b4082b624fd15ef1f3c66b881cc1e03
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

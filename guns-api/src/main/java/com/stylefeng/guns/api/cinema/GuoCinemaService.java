@@ -10,4 +10,6 @@ public interface GuoCinemaService {
     CinemaResult getCinemaList(CinemaShow cinemaShow);
 
     CinemaResult getCondition(ConditionShow conditionShow);
+
+    CinemaResult getFields(Integer cinemaId);
 }

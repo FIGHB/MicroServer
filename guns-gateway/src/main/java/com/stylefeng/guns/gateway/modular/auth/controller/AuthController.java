@@ -3,15 +3,9 @@ package com.stylefeng.guns.gateway.modular.auth.controller;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.gateway.modular.auth.controller.dto.AuthRequest;
 import com.stylefeng.guns.gateway.modular.auth.controller.dto.AuthResponse;
-<<<<<<< HEAD
 import com.stylefeng.guns.gateway.modular.auth.validator.IReqValidator;
 import com.stylefeng.guns.gateway.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.gateway.modular.auth.util.JwtTokenUtil;
-=======
-import com.stylefeng.guns.gateway.common.exception.BizExceptionEnum;
-import com.stylefeng.guns.gateway.modular.auth.util.JwtTokenUtil;
-import com.stylefeng.guns.gateway.modular.auth.validator.IReqValidator;
->>>>>>> 57fccb6f6b4082b624fd15ef1f3c66b881cc1e03
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

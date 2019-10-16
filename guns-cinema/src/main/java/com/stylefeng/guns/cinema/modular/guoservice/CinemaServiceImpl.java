@@ -1,6 +1,7 @@
 package com.stylefeng.guns.cinema.modular.guoservice;
 
 import com.alibaba.dubbo.config.annotation.Service;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.stylefeng.guns.api.cinema.GuoCinemaService;
@@ -8,6 +9,8 @@ import com.stylefeng.guns.api.cinema.vo.*;
 import com.stylefeng.guns.cinema.common.persistence.dao.GuoCinemaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -119,5 +122,66 @@ public class CinemaServiceImpl implements GuoCinemaService {
         }
         conditions.setHalltypeList(halltypeList);
         return CinemaResult.ok(conditions,null,null);
+    }
+
+    @Override
+    public CinemaResult getFields(Integer cinemaId) {
+        Fields fields = new Fields();
+
+        Cinema cinema=null;
+        try{
+            cinema= guoCinemaMapper.getCinemaInfoById(cinemaId);
+            if(cinema==null){
+                return CinemaResult.businessException();
+            }
+        }catch(Exception e){
+            return CinemaResult.SystemException();
+        }
+        fields.setCinemaInfo(cinema);
+
+        List<FilmField> fieldList=null;
+        try{
+            fieldList=guoCinemaMapper.getFieldByCinemaId(cinemaId);
+            if(fieldList==null){
+                return CinemaResult.businessException();
+            }
+        }catch(Exception e){
+            return CinemaResult.SystemException();
+        }
+
+        List<FilmInfo> filmInfoList=new ArrayList<>();
+
+        outer:for (FilmField filmField : fieldList) {
+            Integer filmId = filmField.getFilmId();
+            for (int i = 0; i < filmInfoList.size(); i++) {
+                if(filmInfoList.get(i).getFilmId()==filmId){
+                    FilmInfo filmInfo = filmInfoList.get(i);
+                    List<FilmField> filmFields = filmInfo.getFilmFields();
+                    filmField.setLanguage(filmInfo.getFilmType());
+                    filmFields.add(filmField);
+                    continue outer;
+                }
+            }
+            FilmInfo filmInfo=null;
+            try{
+                filmInfo=guoCinemaMapper.getFilmInfoByFilmId(filmId);
+                if(filmInfo==null){
+                    return CinemaResult.businessException();
+                }
+            }catch(Exception e){
+                return CinemaResult.SystemException();
+            }
+            List<FilmField> filmFields=new ArrayList<>();
+            filmField.setLanguage(filmInfo.getFilmType());
+            filmFields.add(filmField);
+            filmInfo.setFilmFields(filmFields);
+
+            FilmInfo filmInfo1=guoCinemaMapper.getFilmLength(filmId);
+            filmInfo.setFilmLength(filmInfo1.getFilmLength());
+
+            filmInfoList.add(filmInfo);
+        }
+        fields.setFilmList(filmInfoList);
+        return CinemaResult.ok(fields,null,null);
     }
 }

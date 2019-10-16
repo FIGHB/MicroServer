@@ -10,6 +10,16 @@ public class CinemaResult implements Serializable {
     private Object data;
     private String msg;
 
+    private String imgPre;
+
+    public String getImgPre() {
+        return imgPre;
+    }
+
+    public void setImgPre(String imgPre) {
+        this.imgPre = imgPre;
+    }
+
     public String getMsg() {
         return msg;
     }
@@ -69,6 +79,7 @@ public class CinemaResult implements Serializable {
         cinemaResult.setData(data);
         cinemaResult.setNowPage(nowPage);
         cinemaResult.setTotalPage(totalPage);
+        cinemaResult.setImgPre("http://img.meetingshop.cn/");
         return cinemaResult;
     }
     public static CinemaResult businessException(){

@@ -27,4 +27,9 @@ public class GuoCinemaController {
     public CinemaResult getCondition(ConditionShow conditionShow){
         return guoCinemaService.getCondition(conditionShow);
     }
+    @RequestMapping("/getFields")
+    @ResponseBody
+    public CinemaResult getFilmInfo(Integer cinemaId){
+        return guoCinemaService.getFields(cinemaId);
+    }
 }

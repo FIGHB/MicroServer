@@ -14,4 +14,11 @@ public interface GuoCinemaMapper {
 
     List<Halltype> getHalltypeList();
 
+    Cinema getCinemaInfoById(@Param("cinemaId") Integer cinemaId);
+
+    List<FilmField> getFieldByCinemaId(@Param("cinemaId") Integer cinemaId);
+
+    FilmInfo getFilmInfoByFilmId(@Param("filmId") Integer filmId);
+
+    FilmInfo getFilmLength(@Param("filmId") Integer filmId);
 }

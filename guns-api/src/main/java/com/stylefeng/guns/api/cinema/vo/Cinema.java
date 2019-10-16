@@ -6,9 +6,50 @@ public class Cinema implements Serializable {
     private static final long serialVersionUID = -8624908183675264236L;
     private String hallIds;
     private Integer uuid;
-    private String cinemaName;
     private String address;
     private Double minimumPrice;
+
+    private String cinemaAdress;
+    private Integer cinemaId;
+    private String cinemaName;
+    private String cinemaPhone;
+    private String imgUrl;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getCinemaAdress() {
+        return cinemaAdress;
+    }
+
+    public void setCinemaAdress(String cinemaAdress) {
+        this.cinemaAdress = cinemaAdress;
+    }
+
+    public Integer getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(Integer cinemaId) {
+        this.cinemaId = cinemaId;
+    }
+
+    public String getCinemaPhone() {
+        return cinemaPhone;
+    }
+
+    public void setCinemaPhone(String cinemaPhone) {
+        this.cinemaPhone = cinemaPhone;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 
     public String getHallIds() {
         return hallIds;

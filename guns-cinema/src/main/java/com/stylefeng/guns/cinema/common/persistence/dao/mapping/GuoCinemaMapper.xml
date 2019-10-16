@@ -57,4 +57,53 @@
 	<select id="getHalltypeList" resultMap="hallMap">
 		select UUID, show_name from mtime_hall_dict_t
 	</select>
+
+
+
+
+
+	<!--88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888-->
+	<resultMap id="resultMap" type="com.stylefeng.guns.api.cinema.vo.Cinema">
+		<result column="cinema_address" property="cinemaAdress"/>
+		<result column="UUID" property="cinemaId"/>
+		<result column="cinema_name" property="cinemaName"/>
+		<result column="img_address" property="imgUrl"/>
+	</resultMap>
+	<select id="getCinemaInfoById" resultMap="resultMap">
+		select cinema_address, UUID, cinema_name, cinema_phone, img_address from mtime_cinema_t where UUID=#{cinemaId}
+	</select>
+
+	<!--7777777777777777777777777777777777777777777777777777777777777777777777777777777-->
+	<resultMap id="fieldMap" type="com.stylefeng.guns.api.cinema.vo.FilmField">
+		<result column="UUID" property="fieldId"/>
+		<result column="film_id" property="filmId"/>
+		<result column="begin_time" property="beginTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="hall_id" property="hallId"/>
+		<result column="hall_name" property="hallName"/>
+		<result column="price" property="price"/>
+	</resultMap>
+	<select id="getFieldByCinemaId" resultMap="fieldMap">
+		select UUID, film_id, begin_time, end_time, hall_id, hall_name, price from mtime_field_t where cinema_id=#{cinemaId}
+	</select>
+	<!--************************************************************************************-->
+	<resultMap id="filmMap" type="com.stylefeng.guns.api.cinema.vo.FilmInfo">
+		<result column="actors" property="actors"/>
+		<result column="film_cats" property="filmCats"/>
+		<result column="film_id" property="filmId"/>
+		<result column="film_name" property="filmName"/>
+		<result column="film_language" property="filmType"/>
+		<result column="img_address" property="imgAddress"/>
+	</resultMap>
+	<select id="getFilmInfoByFilmId" resultMap="filmMap">
+		select actors, film_cats, film_id, film_name, film_language, img_address
+		from mtime_hall_film_info_t where film_id=#{filmId}
+	</select>
+	<!--**************************************************************************************-->
+	<resultMap id="lengthMap" type="com.stylefeng.guns.api.cinema.vo.FilmInfo">
+		<result column="film_length" property="filmLength"/>
+	</resultMap>
+	<select id="getFilmLength" resultMap="lengthMap">
+		select film_length from mtime_film_info_t where film_id=#{filmId}
+	</select>
 </mapper>
