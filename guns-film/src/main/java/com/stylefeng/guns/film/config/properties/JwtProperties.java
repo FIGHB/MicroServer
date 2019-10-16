@@ -1,8 +1,5 @@
-<<<<<<< HEAD:guns-cinema/src/main/java/com/stylefeng/guns/cinema/config/properties/JwtProperties.java
-package com.stylefeng.guns.cinema.config.properties;
-=======
+
 package com.stylefeng.guns.film.config.properties;
->>>>>>> 57fccb6f6b4082b624fd15ef1f3c66b881cc1e03:guns-film/src/main/java/com/stylefeng/guns/film/config/properties/JwtProperties.java
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

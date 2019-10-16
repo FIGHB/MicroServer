@@ -1,8 +1,5 @@
-<<<<<<< HEAD:guns-cinema/src/main/java/com/stylefeng/guns/cinema/common/persistence/model/User.java
-package com.stylefeng.guns.cinema.common.persistence.model;
-=======
+
 package com.stylefeng.guns.film.common.persistence.model;
->>>>>>> 57fccb6f6b4082b624fd15ef1f3c66b881cc1e03:guns-film/src/main/java/com/stylefeng/guns/film/common/persistence/model/User.java
 
 import com.baomidou.mybatisplus.activerecord.Model;
 
