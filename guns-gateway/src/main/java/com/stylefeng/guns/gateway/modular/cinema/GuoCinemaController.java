@@ -19,7 +19,6 @@ public class GuoCinemaController {
     @RequestMapping("/getCinemas")
     @ResponseBody
     public CinemaResult getCinemas(CinemaShow cinemaShow){
-        System.out.println(1);
         return guoCinemaService.getCinemaList(cinemaShow);
     }
     @RequestMapping("/getCondition")

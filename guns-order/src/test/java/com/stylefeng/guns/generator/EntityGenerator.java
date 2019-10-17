@@ -29,7 +29,7 @@ public class EntityGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir("C:\\Users\\SIMPLE\\Documents\\JAVA\\guns\\guns-rest\\src\\test\\java");//这里写你自己的java目录
+        gc.setOutputDir("C:\\Users\\SIMPLE\\Documents\\test\\MicroServer\\guns-order\\src\\main\\java");//这里写你自己的java目录
         gc.setFileOverride(true);//是否覆盖
         gc.setActiveRecord(true);
         gc.setEnableCache(false);// XML 二级缓存
@@ -50,7 +50,7 @@ public class EntityGenerator {
         });
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("root");
+        dsc.setPassword("123456");
         dsc.setUrl("jdbc:mysql://127.0.0.1:3306/guns_rest?serverTimezone=GMT&characterEncoding=utf8");
         mpg.setDataSource(dsc);
 
@@ -58,15 +58,15 @@ public class EntityGenerator {
         StrategyConfig strategy = new StrategyConfig();
         //strategy.setTablePrefix(new String[]{"_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[]{"user"});//需要生成的表名
+        strategy.setInclude(new String[]{"mtime_hall_dict_t"});//需要生成的表名
         mpg.setStrategy(strategy);
 
         // 包配置，希望生成在那个包下
         PackageConfig pc = new PackageConfig();
         pc.setParent(null);
-        pc.setEntity("com.stylefeng.guns.rest.common.persistence.model");//生成的实体类 bean
-        pc.setMapper("com.stylefeng.guns.rest.common.persistence.dao");//对应的xxxMapper类
-        pc.setXml("com.stylefeng.guns.rest.common.persistence.dao.mapping");//xxxMapper.xml文件
+        pc.setEntity("com.stylefeng.guns.order.common.persistence.model");//生成的实体类 bean
+        pc.setMapper("com.stylefeng.guns.order.common.persistence.dao");//对应的xxxMapper类
+        pc.setXml("com.stylefeng.guns.order.common.persistence.dao.mapping");//xxxMapper.xml文件
         pc.setService("TTT");       //本项目没用，生成之后删掉
         pc.setServiceImpl("TTT");   //本项目没用，生成之后删掉
         pc.setController("TTT");    //本项目没用，生成之后删掉

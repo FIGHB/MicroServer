@@ -10,6 +10,15 @@ public class CinemaShow implements Serializable {
    private Integer PageSize;
    private Integer nowPage;
    private String hallIds;
+   private Integer halltypeId;
+
+    public Integer getHalltypeId() {
+        return halltypeId;
+    }
+
+    public void setHalltypeId(Integer halltypeId) {
+        this.halltypeId = halltypeId;
+    }
 
     public String getHallIds() {
         return hallIds;

@@ -21,7 +21,11 @@ public class CinemaServiceImpl implements GuoCinemaService {
 
     @Override
     public CinemaResult getCinemaList(CinemaShow cinemaShow) {
-        cinemaShow.setHallIds("#"+cinemaShow.getHallType()+"#");
+        if(cinemaShow.getHalltypeId()==null||cinemaShow.getHalltypeId()==99){
+            cinemaShow.setHallIds("#");
+        }else {
+            cinemaShow.setHallIds("#"+cinemaShow.getHalltypeId()+"#");
+        }
         if(cinemaShow.getNowPage()!=null&&cinemaShow.getPageSize()!=null){
             PageHelper.startPage(cinemaShow.getNowPage(),cinemaShow.getPageSize());
         }else if(cinemaShow.getNowPage()==null&&cinemaShow.getPageSize()!=null){
@@ -33,7 +37,13 @@ public class CinemaServiceImpl implements GuoCinemaService {
             cinemaShow.setPageSize(12);
             PageHelper.startPage(1,12);
         }
-        List<Cinema> cinemaList = guoCinemaMapper.getCinemaListByDetail(cinemaShow);
+        List<Cinema> cinemaList =null;
+        try{
+            cinemaList=guoCinemaMapper.getCinemaListByDetail(cinemaShow);
+        }catch(Exception e){
+            return CinemaResult.businessException();
+        }
+
         PageInfo<Cinema> pageInfo=new PageInfo<>(cinemaList);
         long total = pageInfo.getTotal();
         long totalPage;
@@ -48,6 +58,12 @@ public class CinemaServiceImpl implements GuoCinemaService {
         }
         long totalPage1=totalPage;
         Integer totalPage2=(int)totalPage1;
+
+        for (int i = 0; i < cinemaList.size(); i++) {
+            Cinema cinema = cinemaList.get(i);
+            cinema.setCinemaAddress(cinema.getAddress());
+        }
+
         return CinemaResult.ok(cinemaList,cinemaShow.getNowPage(), totalPage2);
     }
 
@@ -59,12 +75,8 @@ public class CinemaServiceImpl implements GuoCinemaService {
         List<Brand> brandList;
         try{
             brandList=guoCinemaMapper.getBrandList();
-            if(brandList==null){
-                return CinemaResult.businessException();
-            }
         }catch(Exception e){
-            CinemaResult cinemaResult = CinemaResult.SystemException();
-            return cinemaResult;
+            return CinemaResult.businessException();
         }
         if(conditionShow.getBrandId()==null){
             conditionShow.setBrandId(99);
@@ -82,11 +94,8 @@ public class CinemaServiceImpl implements GuoCinemaService {
         List<Area> areaList;
         try{
             areaList=guoCinemaMapper.getAreaList();
-            if(areaList==null){
-                return CinemaResult.businessException();
-            }
         }catch(Exception e){
-            return CinemaResult.SystemException();
+            return CinemaResult.businessException();
         }
         if(conditionShow.getAreaId()==null){
             conditionShow.setAreaId(99);
@@ -104,11 +113,8 @@ public class CinemaServiceImpl implements GuoCinemaService {
         List<Halltype> halltypeList;
         try {
             halltypeList=guoCinemaMapper.getHalltypeList();
-            if(halltypeList==null){
-                return CinemaResult.businessException();
-            }
         }catch(Exception e){
-            return CinemaResult.SystemException();
+            return CinemaResult.businessException();
         }
         if(conditionShow.getHallType()==null){
             conditionShow.setHallType(99);
@@ -131,22 +137,16 @@ public class CinemaServiceImpl implements GuoCinemaService {
         Cinema cinema=null;
         try{
             cinema= guoCinemaMapper.getCinemaInfoById(cinemaId);
-            if(cinema==null){
-                return CinemaResult.businessException();
-            }
         }catch(Exception e){
-            return CinemaResult.SystemException();
+            return CinemaResult.businessException();
         }
         fields.setCinemaInfo(cinema);
 
         List<FilmField> fieldList=null;
         try{
             fieldList=guoCinemaMapper.getFieldByCinemaId(cinemaId);
-            if(fieldList==null){
-                return CinemaResult.businessException();
-            }
         }catch(Exception e){
-            return CinemaResult.SystemException();
+            return CinemaResult.businessException();
         }
 
         List<FilmInfo> filmInfoList=new ArrayList<>();
@@ -165,11 +165,8 @@ public class CinemaServiceImpl implements GuoCinemaService {
             FilmInfo filmInfo=null;
             try{
                 filmInfo=guoCinemaMapper.getFilmInfoByFilmId(filmId);
-                if(filmInfo==null){
-                    return CinemaResult.businessException();
-                }
             }catch(Exception e){
-                return CinemaResult.SystemException();
+                return CinemaResult.businessException();
             }
             List<FilmField> filmFields=new ArrayList<>();
             filmField.setLanguage(filmInfo.getFilmType());

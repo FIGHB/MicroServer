@@ -42,7 +42,7 @@
     <select id="queryHallInfo" resultMap="HallInfoResultMap">
         select T1.UUID,T1.hall_name,T1.price, T2.seat_address,GROUP_CONCAT(T3.seats_ids) as seats_ids from (mtime_field_t T1
         inner join mtime_hall_dict_t T2 on T1.hall_id = T2.UUID) inner join mooc_order_t T3 on T3.cinema_id=T1.cinema_id
-        where T3.cinema_id = #{cinemaId} and  T1.UUID=#{fieldId}
+        where T3.cinema_id = #{cinemaId} and  T1.UUID=#{fieldId} and T3.order_status = 1
     </select>
 
 
