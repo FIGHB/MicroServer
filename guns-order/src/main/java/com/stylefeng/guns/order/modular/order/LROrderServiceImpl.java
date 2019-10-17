@@ -57,6 +57,7 @@ public class LROrderServiceImpl implements LROrderService {
         //向数据添加订单数据
         lrMoocOrderT.setUuid(uuid);
         lrMoocOrderT.setFieldId(fieldId);
+        lrMoocOrderT.setFilmId(middleBean.getFilm().getUuid());
         lrMoocOrderT.setSeatsIds(soldSeats);
         lrMoocOrderT.setSeatsName(strSeatsName);
         lrMoocOrderT.setFilmPrice(Double.valueOf(middleBean.getField().getPrice()));
@@ -72,7 +73,7 @@ public class LROrderServiceImpl implements LROrderService {
 
         //封装返回的数据
         HashMap<String, Object> data = new HashMap<>();
-        data.put("orderId", "");
+        data.put("orderId", uuid);
         data.put("filmName", middleBean.getFilm().getFilmName());
         String fieldTime = "今天 " + middleBean.getField().getBeginTime();
         data.put("fieldTime", fieldTime);

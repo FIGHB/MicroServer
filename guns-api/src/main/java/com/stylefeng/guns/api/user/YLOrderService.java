@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface YLOrderService {
     List<SteveOrderVo> getOrderInfo(SteveOrder steveOrder, String username);
+
+    void updateOrderStatus(String uuid,int status);
 }

@@ -13,8 +13,7 @@ server:
   port: 8084 #项目端口
 
 mybatis-plus:
-  mapper-locations: classpath*:com/stylefeng/guns/payment/**/mapping/*.xml
-  typeAliasesPackage: com.stylefeng.guns.payment.common.persistence.model
+
   global-config:
     id-type: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
     db-column-underline: false
@@ -40,6 +39,15 @@ spring:
     username: root
     password: 123456
     filters: log4j,wall,mergeStat
+
+  resources:
+    static-locations: file:${MicroServer.file.upload}
+
+MicroServer:
+  file:
+    upload: C:\\tmp
+  png:
+    url: http://localhost:${server.port}
 
 logging:
   level.root: info

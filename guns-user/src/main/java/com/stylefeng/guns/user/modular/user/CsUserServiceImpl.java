@@ -61,7 +61,6 @@ public class CsUserServiceImpl implements CsUserService {
     public UserInfoModel updateUserInfo(UserInfoModel userInfoModel) {
         csUserMapper.updateUser(userInfoModel);
         UserInfoModel userInfo = csUserMapper.selectByUuid(userInfoModel.getUuid());
-
         return userInfo;
     }
 }

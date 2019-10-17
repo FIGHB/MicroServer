@@ -25,5 +25,10 @@ public interface YLOrderMapper  {
     String getFieldTime(@Param("uuid") int field_id);
 
     String getCinemaName(@Param("uuid") int cinema_id);
+
+
+    SteveOrderInfo selectOrder(@Param("uuid") String uuid);
+
+    void updateOrderStatus(@Param("uuid") String uuid,@Param("status") int status);
 }
 
