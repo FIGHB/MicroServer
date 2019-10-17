@@ -1,4 +1,8 @@
+
+
+
 package com.stylefeng.guns.gateway.common.persistence.model;
+
 
 import com.baomidou.mybatisplus.activerecord.Model;
 
