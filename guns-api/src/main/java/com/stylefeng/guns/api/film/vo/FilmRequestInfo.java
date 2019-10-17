@@ -10,7 +10,7 @@ public class FilmRequestInfo implements Serializable {
     //评价搜索 影片评分 mtime_film_t    film_score
     private Integer sortId;//mtime_film_t 排序方式，1-按热门搜索，2-按时间搜索，3-按评价搜索
     //类型编号 表格mtime_film_t中film_cats，多个分类以#分割； 具体见表 m_time_cat_dict_t
-    private Integer catId;
+    private String catId;
     //区域编号,表格mtime_film_t中film_area,具体见表 m_time_source_dict_t
     private Integer sourceId;
     //年代编号,表格mtime_film_t中film_date,具体见表 m_time_year_dict_t
@@ -23,17 +23,8 @@ public class FilmRequestInfo implements Serializable {
     public FilmRequestInfo() {
     }
 
-    @Override
-    public String toString() {
-        return "FilmRequestInfo{" +
-                "showType=" + showType +
-                ", sortId=" + sortId +
-                ", catId=" + catId +
-                ", sourceId=" + sourceId +
-                ", yearId=" + yearId +
-                ", nowPage=" + nowPage +
-                ", pageSize=" + pageSize +
-                '}';
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Integer getShowType() {
@@ -52,11 +43,11 @@ public class FilmRequestInfo implements Serializable {
         this.sortId = sortId;
     }
 
-    public Integer getCatId() {
+    public String getCatId() {
         return catId;
     }
 
-    public void setCatId(Integer catId) {
+    public void setCatId(String catId) {
         this.catId = catId;
     }
 
@@ -91,4 +82,18 @@ public class FilmRequestInfo implements Serializable {
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
+
+    @Override
+    public String toString() {
+        return "FilmRequestInfo{" +
+                "showType=" + showType +
+                ", sortId=" + sortId +
+                ", catId=" + catId +
+                ", sourceId=" + sourceId +
+                ", yearId=" + yearId +
+                ", nowPage=" + nowPage +
+                ", pageSize=" + pageSize +
+                '}';
+    }
+
 }
