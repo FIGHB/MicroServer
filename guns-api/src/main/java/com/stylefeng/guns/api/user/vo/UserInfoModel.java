@@ -19,8 +19,8 @@ public class UserInfoModel implements Serializable {
     private String biography;
     private String address;
     private String headAddress;
-    private long createTime;
-    private long updateTime;
+    private String createTime;
+    private String updateTime;
     private Date beginTime;
     private Date upDateTime;
 }

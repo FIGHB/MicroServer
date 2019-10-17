@@ -6,6 +6,7 @@ import com.stylefeng.guns.api.pay.PayService;
 import com.stylefeng.guns.api.pay.vo.PayData;
 import com.stylefeng.guns.api.pay.vo.PayVo;
 import com.stylefeng.guns.api.user.UserService;
+import com.stylefeng.guns.api.user.YLOrderService;
 import com.stylefeng.guns.api.user.vo.BaseVo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,10 @@ public class PayController {
     @Reference(interfaceClass = PayService.class)
     private PayService payService;
 
+    @Reference(interfaceClass = YLOrderService.class)
+    private YLOrderService ylOrderService;
+
+
     @RequestMapping("/order/getPayInfo")
     public PayVo getPayInfo(PayData payData){
         PayVo payVo = payService.getPayInfo(payData.getOrderId());
@@ -24,6 +29,7 @@ public class PayController {
     @RequestMapping("/order/getPayResult")
     public BaseVo getPayResult(OrderQueryModel orderQueryModel){
         if(orderQueryModel.getTryNums()!=null&&orderQueryModel.getTryNums() >3){
+            ylOrderService.updateOrderStatus(orderQueryModel.getOrderId(),2);
             return new BaseVo(1,"订单支付失败，请稍后重试");
         }
         BaseVo baseVo = payService.getPayResult(orderQueryModel.getOrderId());
