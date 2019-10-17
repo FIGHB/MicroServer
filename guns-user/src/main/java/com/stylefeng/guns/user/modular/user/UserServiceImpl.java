@@ -3,7 +3,6 @@ package com.stylefeng.guns.user.modular.user;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.stylefeng.guns.api.bean.steve.SteveUserforUserInfo;
 import com.stylefeng.guns.user.common.persistence.dao.UserMapper;
-import com.stylefeng.guns.user.common.persistence.model.User;
 import com.stylefeng.guns.api.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
