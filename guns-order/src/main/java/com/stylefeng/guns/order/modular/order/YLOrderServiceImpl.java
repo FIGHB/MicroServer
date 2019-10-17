@@ -38,7 +38,9 @@ public class YLOrderServiceImpl implements YLOrderService {
 
         List<SteveOrderInfo> steveOrderInfoList = null;
         if(userId != 0){
-            PageHelper.startPage(steveOrder.getNewPage(),steveOrder.getPageSize());
+            if (steveOrder.getNewPage()!=null && steveOrder.getPageSize()!=null) {
+                PageHelper.startPage(steveOrder.getNewPage(), steveOrder.getPageSize());
+            }
             steveOrderInfoList = ylOrderMapper.getOrderInfo(userId);
         }
         System.out.println(steveOrderInfoList);
