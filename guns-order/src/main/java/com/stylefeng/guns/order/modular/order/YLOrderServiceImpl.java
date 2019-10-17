@@ -81,4 +81,20 @@ public class YLOrderServiceImpl implements YLOrderService {
         }
         return steveOrderVoList;
     }
+
+    @Override
+    public void updateOrderStatus(String uuid,int status) {
+        //首先要判断一下这个订单号存在不存在
+        SteveOrderInfo steveOrderInfo = null;
+        if (uuid != null) {
+            try {
+                steveOrderInfo = ylOrderMapper.selectOrder(uuid);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        if (steveOrderInfo.getUUID() != null) {
+            ylOrderMapper.updateOrderStatus(uuid,status);
+        }
+    }
 }
