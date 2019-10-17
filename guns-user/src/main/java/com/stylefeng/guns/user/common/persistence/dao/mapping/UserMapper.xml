@@ -8,4 +8,25 @@
 		<result column="userName" property="userName" />
 	</resultMap>
 
+	<resultMap id="userMap" type="com.stylefeng.guns.api.bean.steve.SteveUserforUserInfo">
+		<result column="UUID" property="uuid"/>
+		<result column="user_name" property="username"/>
+		<result column="nick_name" property="nickname"/>
+		<result column="email" property="email"/>
+		<result column="user_phone" property="phone"/>
+		<result column="user_sex" property="sex"/>
+		<result column="birthday" property="birthday"/>
+		<result column="life_state" property="lifeState"/>
+		<result column="biography" property="biography"/>
+		<result column="address" property="address"/>
+		<result column="head_url" property="headAddress"/>
+		<result column="begin_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+	<select id="getUserInfo" resultMap="userMap">
+		select UUID,user_name,nick_name,email,user_phone,user_sex,birthday,
+		life_state,biography,address,head_url,begin_time,update_time from
+		cs_user where user_name = #{username}
+	</select>
+
 </mapper>

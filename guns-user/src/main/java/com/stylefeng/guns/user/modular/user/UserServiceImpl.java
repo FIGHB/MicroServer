@@ -1,8 +1,8 @@
 package com.stylefeng.guns.user.modular.user;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.stylefeng.guns.api.bean.steve.SteveUserforUserInfo;
 import com.stylefeng.guns.user.common.persistence.dao.UserMapper;
-import com.stylefeng.guns.user.common.persistence.model.User;
 import com.stylefeng.guns.api.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,16 +14,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
-    //示例
     @Override
-    public String getNameById(int userId) {
+    public SteveUserforUserInfo getUserInfo(String username) {
+        SteveUserforUserInfo userInfo = new SteveUserforUserInfo();
 
-        User user = userMapper.selectById(userId);
-        return user.getUserName();
+        if (username != null){
+            userInfo = userMapper.getUserInfo(username);
+        }
+        return userInfo;
     }
-
-    /*@Override
-    public String insert(UserModel userModel) {
-
-    }*/
 }

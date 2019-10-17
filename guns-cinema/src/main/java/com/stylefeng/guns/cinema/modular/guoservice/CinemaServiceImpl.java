@@ -21,7 +21,11 @@ public class CinemaServiceImpl implements GuoCinemaService {
 
     @Override
     public CinemaResult getCinemaList(CinemaShow cinemaShow) {
-        cinemaShow.setHallIds("#"+cinemaShow.getHallType()+"#");
+        if(cinemaShow.getHalltypeId()==null||cinemaShow.getHalltypeId()==99){
+            cinemaShow.setHallIds("#");
+        }else {
+            cinemaShow.setHallIds("#"+cinemaShow.getHalltypeId()+"#");
+        }
         if(cinemaShow.getNowPage()!=null&&cinemaShow.getPageSize()!=null){
             PageHelper.startPage(cinemaShow.getNowPage(),cinemaShow.getPageSize());
         }else if(cinemaShow.getNowPage()==null&&cinemaShow.getPageSize()!=null){
@@ -48,6 +52,12 @@ public class CinemaServiceImpl implements GuoCinemaService {
         }
         long totalPage1=totalPage;
         Integer totalPage2=(int)totalPage1;
+
+        for (int i = 0; i < cinemaList.size(); i++) {
+            Cinema cinema = cinemaList.get(i);
+            cinema.setCinemaAddress(cinema.getAddress());
+        }
+
         return CinemaResult.ok(cinemaList,cinemaShow.getNowPage(), totalPage2);
     }
 
@@ -131,11 +141,8 @@ public class CinemaServiceImpl implements GuoCinemaService {
         Cinema cinema=null;
         try{
             cinema= guoCinemaMapper.getCinemaInfoById(cinemaId);
-            if(cinema==null){
-                return CinemaResult.businessException();
-            }
         }catch(Exception e){
-            return CinemaResult.SystemException();
+            return CinemaResult.businessException();
         }
         fields.setCinemaInfo(cinema);
 
@@ -146,7 +153,7 @@ public class CinemaServiceImpl implements GuoCinemaService {
                 return CinemaResult.businessException();
             }
         }catch(Exception e){
-            return CinemaResult.SystemException();
+            return CinemaResult.businessException();
         }
 
         List<FilmInfo> filmInfoList=new ArrayList<>();
