@@ -9,7 +9,7 @@ public class Cinema implements Serializable {
     private String address;
     private Double minimumPrice;
 
-    private String cinemaAdress;
+    private String cinemaAddress;
     private Integer cinemaId;
     private String cinemaName;
     private String cinemaPhone;
@@ -19,12 +19,12 @@ public class Cinema implements Serializable {
         return serialVersionUID;
     }
 
-    public String getCinemaAdress() {
-        return cinemaAdress;
+    public String getCinemaAddress() {
+        return cinemaAddress;
     }
 
-    public void setCinemaAdress(String cinemaAdress) {
-        this.cinemaAdress = cinemaAdress;
+    public void setCinemaAddress(String cinemaAddress) {
+        this.cinemaAddress = cinemaAddress;
     }
 
     public Integer getCinemaId() {

@@ -11,10 +11,10 @@
 	<select id="getCinemaListByDetail" resultMap="cinemaMap">
 		select UUID, cinema_name, cinema_address, minimum_price from mtime_cinema_t where 1=1
 		<choose>
-			<when test="cinemaShow.brandId!=null">
+			<when test="cinemaShow.brandId!=null and cinemaShow.brandId!=99">
 				and brand_id=#{cinemaShow.brandId}
 			</when>
-			<when test="cinemaShow.areaId!=null">
+			<when test="cinemaShow.areaId!=null and cinemaShow.areaId!=99">
 				and area_id=#{cinemaShow.areaId}
 			</when>
 		</choose>
@@ -64,10 +64,11 @@
 
 	<!--88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888-->
 	<resultMap id="resultMap" type="com.stylefeng.guns.api.cinema.vo.Cinema">
-		<result column="cinema_address" property="cinemaAdress"/>
+		<result column="cinema_address" property="cinemaAddress"/>
 		<result column="UUID" property="cinemaId"/>
 		<result column="cinema_name" property="cinemaName"/>
 		<result column="img_address" property="imgUrl"/>
+        <result column="cinema_phone" property="cinemaPhone"/>
 	</resultMap>
 	<select id="getCinemaInfoById" resultMap="resultMap">
 		select cinema_address, UUID, cinema_name, cinema_phone, img_address from mtime_cinema_t where UUID=#{cinemaId}
