@@ -46,6 +46,8 @@ spring:
 MicroServer:
   file:
     upload: C:\\tmp
+  png:
+    url: http://localhost:${server.port}
 
 logging:
   level.root: info

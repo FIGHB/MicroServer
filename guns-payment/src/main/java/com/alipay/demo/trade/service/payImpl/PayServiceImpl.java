@@ -8,11 +8,16 @@ import com.stylefeng.guns.api.pay.vo.OrderStatus;
 import com.stylefeng.guns.api.pay.vo.PayData;
 import com.stylefeng.guns.api.pay.vo.PayVo;
 import com.stylefeng.guns.api.user.vo.BaseVo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @Service(interfaceClass = PayService.class)
 public class PayServiceImpl implements PayService {
+
+    @Value("${MicroServer.png.url}")
+    private String url;
+
     @Override
     public PayVo getPayInfo(String orderId) {
         TradeModel tradeModel = new TradeModel();
@@ -22,7 +27,7 @@ public class PayServiceImpl implements PayService {
             return new PayVo(1,"订单支付失败，请稍后重试");
         }
         PayData payData = new PayData(orderId, png);
-        return new PayVo(0,"http://localhost:8084",payData);
+        return new PayVo(0,url,payData);
     }
 
     @Override
@@ -30,6 +35,7 @@ public class PayServiceImpl implements PayService {
         int i = PayMain.tradeQuery(orderId);
         if(i==0){
             OrderStatus orderStatus = new OrderStatus(orderId, 1, "支付成功");
+
             return new BaseVo(0,orderStatus);
         }else if(i==1){
             return new BaseVo(1,"订单支付失败，请稍后重试");
