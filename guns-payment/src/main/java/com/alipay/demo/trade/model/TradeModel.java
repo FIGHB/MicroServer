@@ -12,7 +12,7 @@ public class TradeModel {
     private String body;
     private String operatorId="test_operator_id";
     private String storeId="test_store_id";//必须
-    private String timeoutExpress="120m";
+    private String timeoutExpress="3m";
     public TradeModel(String outTradeNo,String subject,String totalAmount,String storeId){
         this.outTradeNo=outTradeNo;
         this.storeId=storeId;

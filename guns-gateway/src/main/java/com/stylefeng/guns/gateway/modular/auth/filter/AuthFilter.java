@@ -1,5 +1,6 @@
 package com.stylefeng.guns.gateway.modular.auth.filter;
 
+import com.stylefeng.guns.api.user.vo.BaseVo;
 import com.stylefeng.guns.core.base.tips.ErrorTip;
 import com.stylefeng.guns.core.util.RenderUtil;
 import com.stylefeng.guns.gateway.common.exception.BizExceptionEnum;
@@ -46,7 +47,7 @@ public class AuthFilter extends OncePerRequestFilter {
         String ignoreUrl = jwtProperties.getIgnoreUrl();
         String[] split = ignoreUrl.split(",");
         for (int i = 0; i <split.length; i++) {
-            if (request.getServletPath().equals(split[i])){
+            if (request.getServletPath().contains(split[i])){
                 chain.doFilter(request, response);
                 return;
             }
@@ -62,7 +63,7 @@ public class AuthFilter extends OncePerRequestFilter {
                 jwtTokenUtil.parseToken(authToken);
                 String username = jedis.get(authToken);
                 if(username==null){
-                    RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_EXPIRED.getCode(), BizExceptionEnum.TOKEN_EXPIRED.getMessage()));
+                    RenderUtil.renderJson(response, new BaseVo(BizExceptionEnum.TOKEN_EXPIRED.getCode(), BizExceptionEnum.TOKEN_EXPIRED.getMessage()));
                     return;
                 }else {
                     jedis.expire(authToken,604800);

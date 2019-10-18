@@ -26,6 +26,7 @@ public class PayController {
         PayVo payVo = payService.getPayInfo(payData.getOrderId());
         return payVo;
     }
+
     @RequestMapping("/order/getPayResult")
     public BaseVo getPayResult(OrderQueryModel orderQueryModel){
         if(orderQueryModel.getTryNums()!=null&&orderQueryModel.getTryNums() >3){

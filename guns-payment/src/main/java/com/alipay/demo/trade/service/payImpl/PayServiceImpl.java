@@ -10,6 +10,7 @@ import com.stylefeng.guns.api.pay.vo.PayData;
 import com.stylefeng.guns.api.pay.vo.PayVo;
 import com.stylefeng.guns.api.user.YLOrderService;
 import com.stylefeng.guns.api.user.vo.BaseVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,9 @@ public class PayServiceImpl implements PayService {
 
     @Value("${MicroServer.png.url}")
     private String url;
+
+    @Autowired
+    private PayMain payMain;
 
     @Reference(interfaceClass = YLOrderService.class)
     private YLOrderService ylOrderService;
@@ -30,7 +34,7 @@ public class PayServiceImpl implements PayService {
         }
         TradeModel tradeModel = new TradeModel();
         tradeModel.setOutTradeNo(orderId);
-        String png = PayMain.tradePrecreate(tradeModel);
+        String png = payMain.tradePrecreate(tradeModel);
         if(png==null){
             return new PayVo(1,"订单支付失败，请稍后重试");
         }
@@ -40,7 +44,7 @@ public class PayServiceImpl implements PayService {
 
     @Override
     public BaseVo getPayResult(String orderId) {
-        int i = PayMain.tradeQuery(orderId);
+        int i = payMain.tradeQuery(orderId);
         if(i==0){
             OrderStatus orderStatus = new OrderStatus(orderId, 1, "支付成功");
             ylOrderService.updateOrderStatus(orderId,1);

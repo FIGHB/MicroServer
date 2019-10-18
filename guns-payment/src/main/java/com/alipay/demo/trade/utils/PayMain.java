@@ -19,10 +19,17 @@ import com.alipay.demo.trade.service.impl.AlipayTradeWithHBServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.*;
-
+@Component
 public class PayMain {
+
+    @Value("${MicroServer.file.upload}")
+    private String ecodePath;
+
     private static Log log = LogFactory.getLog(PayMain.class);
 
     // 支付宝当面付2.0服务
@@ -57,7 +64,7 @@ public class PayMain {
 
 
 
-    private static void dumpResponse(AlipayResponse response) {
+    private void dumpResponse(AlipayResponse response) {
         if (response != null) {
             log.info(String.format("code:%s, msg:%s", response.getCode(), response.getMsg()));
             if (StringUtils.isNotEmpty(response.getSubCode())) {
@@ -69,7 +76,7 @@ public class PayMain {
     }
 
     // 当面付2.0生成支付二维码
-    public static String tradePrecreate(TradeModel tradeModel) {
+    public  String tradePrecreate(TradeModel tradeModel) {
         // (必填) 商户网站订单系统中唯一订单号，64个字符以内，只能包含字母、数字、下划线，
         // 需保证商户系统端不能重复，建议通过数据库sequence生成，
         String outTradeNo = tradeModel.getOutTradeNo();
@@ -136,8 +143,12 @@ public class PayMain {
 
                 // 需要修改为运行机器上的路径
                 filePath = String.format("/qr-%s.png", response.getOutTradeNo());
+                File file = new File(ecodePath);
+                if(!file.exists()){
+                    file.mkdirs();
+                }
                 log.info("filePath:" + filePath);
-                ZxingUtils.getQRCodeImge(response.getQrCode(), 256, "C:\\tmp"+filePath);
+                ZxingUtils.getQRCodeImge(response.getQrCode(), 256, ecodePath+filePath);
 
             case FAILED:
                 log.error("支付宝预下单失败!!!");
@@ -155,7 +166,7 @@ public class PayMain {
     }
 
     // 当面付2.0查询订单
-    public static int  tradeQuery(String orderId) {
+    public  int  tradeQuery(String orderId) {
         // (必填) 商户订单号，通过此商户订单号查询当面付的交易状态
         String outTradeNo = orderId;
 

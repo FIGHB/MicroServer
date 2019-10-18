@@ -37,6 +37,9 @@ public class WxfAuthController {
 
     @RequestMapping(value = "${jwt.auth-path}")
     public BaseVo createAuthenticationToken(AuthRequest authRequest) {
+        if(authRequest.getCredenceName()==null||authRequest.getCredenceCode()==null){
+            return new BaseVo(1,"用户名和密码不能为空");
+        }
 
         boolean validate = reqValidator.validate(authRequest);
 
