@@ -7,7 +7,7 @@
 		address,head_url,biography,life_state,begin_time,update_time from cs_user
 		 where user_name = #{username}
 	</select>
-	
+
 	<select id="getOrderInfo" resultType="com.stylefeng.guns.api.bean.steve.SteveOrderInfo">
 		SELECT UUID,cinema_id,field_id,film_id,seats_ids,seats_name,film_price,
 		order_price,order_time,order_user,order_status from mooc_order_t
@@ -33,5 +33,7 @@
 	<update id="updateOrderStatus">
 		UPDATE mooc_order_t set order_status = #{status} WHERE UUID = #{uuid}
 	</update>
-
+	<select id="getOrderById" resultType="com.stylefeng.guns.api.bean.steve.SteveOrderInfo">
+		select order_price,film_id where UUID = #{uuid}
+	</select>
 </mapper>

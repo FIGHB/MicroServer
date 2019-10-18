@@ -99,4 +99,14 @@ public class YLOrderServiceImpl implements YLOrderService {
             ylOrderMapper.updateOrderStatus(uuid,status);
         }
     }
+    @Override
+    public SteveOrderInfo getOrderById(String orderId){
+        SteveOrderInfo orderById = ylOrderMapper.getOrderById(orderId);
+        return orderById;
+    }
+    @Override
+    public String getFilmName(int filmid){
+        String filmName = ylOrderMapper.getFilmName(filmid);
+        return filmName;
+    }
 }

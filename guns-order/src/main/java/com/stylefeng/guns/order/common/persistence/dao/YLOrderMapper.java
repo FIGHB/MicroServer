@@ -30,5 +30,7 @@ public interface YLOrderMapper  {
     SteveOrderInfo selectOrder(@Param("uuid") String uuid);
 
     void updateOrderStatus(@Param("uuid") String uuid,@Param("status") int status);
+
+    SteveOrderInfo getOrderById(@Param("uuid") String uuid);
 }
 

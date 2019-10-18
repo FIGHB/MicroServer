@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alipay.demo.trade.utils.PayMain;
 import com.alipay.demo.trade.model.TradeModel;
+import com.stylefeng.guns.api.bean.steve.SteveOrderInfo;
 import com.stylefeng.guns.api.pay.PayService;
 import com.stylefeng.guns.api.pay.vo.OrderStatus;
 import com.stylefeng.guns.api.pay.vo.PayData;
@@ -34,6 +35,9 @@ public class PayServiceImpl implements PayService {
         }
         TradeModel tradeModel = new TradeModel();
         tradeModel.setOutTradeNo(orderId);
+        SteveOrderInfo orderById = ylOrderService.getOrderById(orderId);
+        tradeModel.setTotalAmount(orderById.getOrder_price()+"");
+        tradeModel.setSubject(ylOrderService.getFilmName(orderById.getFilm_id()));
         String png = payMain.tradePrecreate(tradeModel);
         if(png==null){
             return new PayVo(1,"订单支付失败，请稍后重试");
