@@ -5,7 +5,6 @@ import com.stylefeng.guns.api.order.LROrderService;
 import com.stylefeng.guns.gateway.common.persistence.model.HomePageResponseVo;
 import com.stylefeng.guns.gateway.modular.auth.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
