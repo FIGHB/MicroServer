@@ -33,7 +33,8 @@ public class LROrderController {
         if(flag) {
             Object data = orderService.insertOrder(username, fieldId, soldSeats, seatsName);
             return HomePageResponseVo.ok(data);
+        } else {
+            return HomePageResponseVo.err(1, "该座位正在被人选购，但未支付");
         }
-        return HomePageResponseVo.err(999, "系统出现异常，请联系管理员");
     }
 }

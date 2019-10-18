@@ -16,4 +16,6 @@ public interface LRMoocOrderTMapper extends BaseMapper<LRMoocOrderT> {
     Integer getUserIdByName(String userName);
 
     LRMoocOrderT selectOrder(String seatsIds, Integer userId);
+
+    int queryOrderSeatName(String seatName, Integer fieldId);
 }

@@ -36,7 +36,18 @@ public class LROrderServiceImpl implements LROrderService {
 
     @Override
     public boolean isTrueSeats(Integer fieldId, String soldSeats) {
-
+        LRMiddleTableBean middleBean = getMiddleTableBean(fieldId);
+        ArrayList<Integer> seatsList = getSoldSeatsList(soldSeats);
+        LRSeatBean seatBean = getLRSeatBeanFromFilePath("json/imax.json");
+        String strSeatsName = getStrSeatsName(seatsList, seatBean, "单排座");
+        String strSeatsName2 = getStrSeatsName(seatsList, seatBean, "双排座");
+        if(strSeatsName2 != null) strSeatsName += "," + strSeatsName2;
+        String[] seats = strSeatsName.split(",");
+        for (String seat : seats) {
+            seat = "%" + seat + "%";
+            int select = moocOrderTMapper.queryOrderSeatName(seat, middleBean.getField().getUuid());
+            if(select > 0) return false;
+        }
         return true;
     }
 
@@ -88,12 +99,15 @@ public class LROrderServiceImpl implements LROrderService {
     private String getStrSeatsName(ArrayList<Integer> seatsList, LRSeatBean seatBean, String seatsName) {
         StringBuffer strb = new StringBuffer();
         for (Integer seatId : seatsList) {
-            if(seatsName != null && seatsName.equals("单排座")) {
+            if(seatsName != null && seatsName.contains("单排座")) {
                 List<List<Map<String, Integer>>> single = seatBean.getSingle();
-                strb.append(getStrSeatsName(seatId, single)).append(",");
-            } else if(seatsName != null && seatsName.equals("双排座")) {
+                String strSeatsName1 = getStrSeatsName(seatId, single);
+                if(strSeatsName1 != null) strb.append(strSeatsName1).append(",");
+            }
+            if(seatsName != null && seatsName.contains("双排座")) {
                 List<List<Map<String, Integer>>> couple = seatBean.getCouple();
-                strb.append(getStrSeatsName(seatId, couple)).append(",");
+                String strSeatsName2 = getStrSeatsName(seatId, couple);
+                if(strSeatsName2 != null) strb.append(strSeatsName2).append(",");
             }
         }
         if(strb.length() > 0) return strb.substring(0, strb.length() - 1);
@@ -117,7 +131,7 @@ public class LROrderServiceImpl implements LROrderService {
     //从 resources 目录下的对应 json 文件中获取座位的相关信息
     private LRSeatBean getLRSeatBeanFromFilePath(String filePath) {
         //获取 座位相关的 json 内容
-        String strJson = JsonUtils.readJsonFile("json/imax.json");
+        String strJson = JsonUtils.readJsonFile("json/common.json");
         LRSeatBean seatBean = JSON.parseObject(strJson, LRSeatBean.class);
         return seatBean;
     }
