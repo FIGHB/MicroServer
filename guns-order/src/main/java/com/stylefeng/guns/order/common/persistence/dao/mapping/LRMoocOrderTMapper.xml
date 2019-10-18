@@ -28,4 +28,11 @@
         and order_user = #{userId}
         limit 0, 1
     </select>
+
+    <select id="queryOrderSeatName" resultType="int">
+        select count(*) from mooc_order_t
+        where seats_name like #{seatName}
+        and order_status BETWEEN 0 and 1
+        and field_id = #{fieldId}
+    </select>
 </mapper>
