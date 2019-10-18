@@ -29,11 +29,11 @@ public class PayController {
 
     @RequestMapping("/order/getPayResult")
     public BaseVo getPayResult(OrderQueryModel orderQueryModel){
-        if(orderQueryModel.getTryNums()!=null&&orderQueryModel.getTryNums() >3){
+        if(orderQueryModel.getTryNums()!=null&&orderQueryModel.getTryNums() >12){
             ylOrderService.updateOrderStatus(orderQueryModel.getOrderId(),2);
-            return new BaseVo(1,"订单支付失败，请稍后重试");
+            return new BaseVo(1,"订单已关闭");
         }
-        BaseVo baseVo = payService.getPayResult(orderQueryModel.getOrderId());
+        BaseVo baseVo = payService.getPayResult(orderQueryModel.getOrderId(),orderQueryModel.getTryNums());
         return baseVo;
     }
 }

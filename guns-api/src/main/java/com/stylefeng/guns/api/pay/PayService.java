@@ -6,5 +6,5 @@ import com.stylefeng.guns.api.user.vo.BaseVo;
 public interface PayService {
     PayVo getPayInfo(String orderId);
 
-    BaseVo getPayResult(String orderId);
+    BaseVo getPayResult(String orderId, Integer tryNums);
 }

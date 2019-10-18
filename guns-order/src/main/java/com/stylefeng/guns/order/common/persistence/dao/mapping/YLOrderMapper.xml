@@ -34,6 +34,6 @@
 		UPDATE mooc_order_t set order_status = #{status} WHERE UUID = #{uuid}
 	</update>
 	<select id="getOrderById" resultType="com.stylefeng.guns.api.bean.steve.SteveOrderInfo">
-		select order_price,film_id where UUID = #{uuid}
+		select order_price,film_id from mooc_order_t where UUID = #{uuid}
 	</select>
 </mapper>

@@ -47,14 +47,18 @@ public class PayServiceImpl implements PayService {
     }
 
     @Override
-    public BaseVo getPayResult(String orderId) {
+    public BaseVo getPayResult(String orderId, Integer tryNums) {
         int i = payMain.tradeQuery(orderId);
         if(i==0){
             OrderStatus orderStatus = new OrderStatus(orderId, 1, "支付成功");
             ylOrderService.updateOrderStatus(orderId,1);
             return new BaseVo(0,orderStatus);
         }else if(i==1){
-            ylOrderService.updateOrderStatus(orderId,0);
+            if(tryNums==12){
+                ylOrderService.updateOrderStatus(orderId,2);
+            }else {
+                ylOrderService.updateOrderStatus(orderId,0);
+            }
             return new BaseVo(1,"订单支付失败，请稍后重试");
         }else {
             return new BaseVo(999,"系统异常，请联系管理员");
