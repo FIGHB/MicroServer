@@ -76,11 +76,11 @@ public class FilmServiceImplZhao implements FilmServiceZhao {
 
     @Override
     public BaseRespVo getFilms(FilmRequestInfo filmRequestInfo) {
-        int showType ;
+        int filmStatus ;
         if(filmRequestInfo.getShowType()!=null){
-            showType = filmRequestInfo.getShowType();
+            filmStatus = filmRequestInfo.getShowType();
         }else {
-            showType = 1;
+            filmStatus = 1;
         }
         int pageSize;
         if(filmRequestInfo.getPageSize()!=null){
@@ -94,14 +94,61 @@ public class FilmServiceImplZhao implements FilmServiceZhao {
         }else {
             nowPage = 1;
         }
+
+        String filmCats;
+        if (filmRequestInfo.getCatId()!=null){
+            filmCats = filmRequestInfo.getCatId();
+        }else {
+            filmCats = "2";
+        }
+        int filmArea;
+        if (filmRequestInfo.getSourceId()!=null){
+            filmArea= filmRequestInfo.getSourceId();
+        }else {
+            filmArea = 99;
+        }
+        int filmDate;
+        if (filmRequestInfo.getYearId()!=null){
+            filmDate = filmRequestInfo.getYearId();
+        }else {
+            filmDate = 99;
+        }
+        int sortId;
+        if (filmRequestInfo.getSortId()!=null){
+            sortId = filmRequestInfo.getSortId();
+        }else {
+            sortId = 1;
+        }
         Page<MtimeFilmTZhao> page = new Page<>();
         page.setSize(pageSize);//当前几条数据
         page.setCurrent(nowPage);//当前第几页
         EntityWrapper entityWrapper = new EntityWrapper();
-        entityWrapper.eq("film_status",showType);
+        entityWrapper.eq("film_status",filmStatus);
+        if (!filmCats.equals("99")){
+            entityWrapper.like("film_cats",filmCats);
+        }
+        if (filmArea!=99){
+           entityWrapper.eq("film_area",filmArea);
+        }
+        if (filmDate!=99)
+        {
+            entityWrapper.eq("film_date",filmDate);
+        }
+
+        switch (sortId){
+            case 1:
+                entityWrapper.orderBy("film_box_office",false);
+                break;
+            case 2:
+                entityWrapper.orderBy("film_time",false);
+                break;
+            case 3:
+                entityWrapper.orderBy("film_score",false);
+                break;
+        }
         List<MtimeFilmTZhao> filmList = mtimeFilmTMapper.selectPage(page,entityWrapper);
         List<FilmResponseInfo> filmInfoList = convert2FilmInfoList(filmList);
-        Long items = filmMapperZhao.filmQueryItems(showType);
+        Long items = filmMapperZhao.filmQueryItems(filmStatus);
         int totalPage = (int) Math.ceil(1.0*items/pageSize);
         BaseRespVo ok = BaseRespVo.ok(filmInfoList, "http://img.meetingshop.cn/", nowPage,totalPage );
         return ok;

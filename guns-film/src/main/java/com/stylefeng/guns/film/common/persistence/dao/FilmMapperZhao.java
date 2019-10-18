@@ -17,4 +17,6 @@ public interface FilmMapperZhao {
     ArrayList<FilmResponseInfo> filmSelectByStatus(@Param("film_status") int showType);
 
     Long filmQueryItems(@Param("film_status") int showType);
+
+
 }
