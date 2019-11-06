@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.cinema.common.persistence.dao.CinemaMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="FilmInfoResultMap" type="com.stylefeng.guns.api.cinema.cvo.FilmInfo">
+        <result column="UUID" property="filmId" />
+        <result column="film_name" property="filmName"/>
+        <result column="film_language" property="filmType"/>
+        <result column="img_address" property="imgAddress"/>
+        <result column="film_cats" property="filmCats"/>
+        <result column="film_length" property="filmLength"/>
+    </resultMap>
+    <!--com/stylefeng/guns/cinema/common/persistence/dao/mapping/CWInfoMapper.xml:19-->
+    <select id="queryFilmInfo" resultMap="FilmInfoResultMap">
+          select T1.UUID,T1.film_name,T3.film_language,T1.img_address,T1.film_cats, T3.film_length from (( mtime_film_t T1
+         inner join mtime_film_info_t T2 on T1.UUID = T2.film_id ) left join mtime_hall_film_info_t T3 on T3.film_id=T1.UUID)
+          inner join mtime_field_t T4 on T4.film_id=T1.UUID where T4.UUID=#{fieldId}
+
+    </select>
+
+    <resultMap id="CinemaInfoResultMap" type="com.stylefeng.guns.api.cinema.cvo.CinemaInfo">
+        <result column="cinema_address" property="cinemaAdress"/>
+        <result column="UUID" property="cinemaId"/>
+        <result column="cinema_name" property="cinemaName"/>
+        <result column="cinema_phone" property="cinemaPhone"/>
+        <result column="img_address" property="imgUrl"/>
+    </resultMap>
+
+    <select id="queryCinemaInfo" resultMap="CinemaInfoResultMap">
+        select cinema_address,UUID,cinema_name,cinema_phone,img_address from mtime_cinema_t
+        where UUID = #{cinemaId}
+    </select>
+
+    <resultMap id="HallInfoResultMap" type="com.stylefeng.guns.api.cinema.cvo.HallInfo">
+        <id column="UUID" property="hallFieldId" />
+        <id column="hall_name" property="hallName" />
+        <id column="price" property="price" />
+        <id column="seat_address" property="seatFile" />
+        <id column="seats_ids" property="soldSeats" />
+    </resultMap>
+
+    <select id="queryHallInfo" resultMap="HallInfoResultMap">
+        select T1.UUID,T1.hall_name,T1.price, T2.seat_address,GROUP_CONCAT(T3.seats_ids) as seats_ids from (mtime_field_t T1
+        inner join mtime_hall_dict_t T2 on T1.hall_id = T2.UUID) inner join mooc_order_t T3 on T3.cinema_id=T1.cinema_id
+        where T3.cinema_id = #{cinemaId} and  T1.UUID=#{fieldId} and T3.order_status <![CDATA[!=2]]>
+    </select>
+
+
+
+    <select id="queryFilmCat" resultType="String">
+        select show_name from mtime_cat_dict_t
+        where UUID = #{s}
+    </select>
+</mapper>

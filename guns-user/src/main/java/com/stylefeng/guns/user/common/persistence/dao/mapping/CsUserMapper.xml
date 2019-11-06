@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.user.common.persistence.dao.CsUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.user.common.persistence.model.CsUser">
+        <id column="UUID" property="uuid" />
+        <result column="user_name" property="userName" />
+        <result column="user_pwd" property="userPwd" />
+        <result column="nick_name" property="nickName" />
+        <result column="user_sex" property="userSex" />
+        <result column="birthday" property="birthday" />
+        <result column="email" property="email" />
+        <result column="user_phone" property="userPhone" />
+        <result column="address" property="address" />
+        <result column="head_url" property="headUrl" />
+        <result column="biography" property="biography" />
+        <result column="life_state" property="lifeState" />
+        <result column="begin_time" property="beginTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <select id="queryByUsername" resultType="int">
+        select count(*) from cs_user where user_name = #{username}
+    </select>
+
+    <select id="queryPwdByUser" resultMap="BaseResultMap">
+        select user_pwd from cs_user where user_name = #{username}
+    </select>
+
+    <update id="updateUser">
+        update cs_user
+        <set>
+            <if test="nickname != null">
+                nick_name = #{nickname},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="phone != null">
+                user_phone = #{phone},
+            </if>
+            <if test="sex != null">
+                user_sex = #{sex},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="lifeState != null">
+                life_state = #{lifeState},
+            </if>
+            <if test="biography != null">
+                biography = #{biography},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="upDateTime != null">
+                update_time = #{upDateTime},
+            </if>
+        </set>
+        where UUID = #{uuid}
+    </update>
+    <resultMap id="UserInfoMap" type="com.stylefeng.guns.api.user.vo.UserInfoModel">
+        <result column="UUID" property="uuid" />
+        <result column="user_name" property="username" />
+        <result column="nick_name" property="nickname" />
+        <result column="user_sex" property="sex" />
+        <result column="birthday" property="birthday" />
+        <result column="email" property="email" />
+        <result column="user_phone" property="phone" />
+        <result column="address" property="address" />
+        <result column="head_url" property="headAddress" />
+        <result column="biography" property="biography" />
+        <result column="life_state" property="lifeState" />
+        <result column="begin_time" property="createTime" />
+        <result column="update_time" property="upDateTime" />
+    </resultMap>
+    <select id="selectByUuid" resultMap="UserInfoMap">
+        select UUID,nick_name,user_name,user_sex,birthday,email,user_phone,address,head_url,
+        biography,life_state,begin_time,update_time from cs_user
+        where UUID = #{uuid}
+    </select>
+</mapper>

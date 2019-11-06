@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.film.common.persistence.dao.FilmMapperZhao">
+    <select id="catQueryALL" resultType="com.stylefeng.guns.film.common.persistence.model.CatVO">
+        select UUID as catId,show_name as catName from mtime_cat_dict_t
+    </select>
+    <select id="sourceQueryALL" resultType="com.stylefeng.guns.film.common.persistence.model.SourceVO">
+        select UUID as sourceId,show_name as sourceName from mtime_source_dict_t
+    </select>
+    <select id="yearQueryAll" resultType="com.stylefeng.guns.film.common.persistence.model.YearVO">
+        select UUID AS yearId,show_name as yearName from mtime_year_dict_t
+    </select>
+    <select id="filmSelectByStatus" resultType="com.stylefeng.guns.api.film.vo.FilmResponseInfo">
+        select UUID AS filmId,film_type as filmType,img_address as imgAddress,film_name as filmName,film_score as filmScore
+        from mtime_film_t where film_status = #{film_status}
+    </select>
+    <select id="filmQueryItems" resultType="java.lang.Long">
+        select count(UUID) from mtime_film_t where film_status = #{film_status}
+    </select>
+</mapper>
